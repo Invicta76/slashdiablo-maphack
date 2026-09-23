@@ -54,8 +54,18 @@ void ItemMover::Init() {
 		INVENTORY_LEFT = ((inventoryLayout->Left - 320) + (*p_D2CLIENT_ScreenSizeX / 2));
 		INVENTORY_TOP = ((*p_D2CLIENT_ScreenSizeY / 2) - 240) + inventoryLayout->Top;
 		STASH_LEFT = ((*p_D2CLIENT_ScreenSizeX / 2) - 320) + lodStashLayout->Left;
-		LOD_STASH_TOP = ((*p_D2CLIENT_ScreenSizeY / 2) - 240) + lodStashLayout->Top;
-		CLASSIC_STASH_TOP = ((*p_D2CLIENT_ScreenSizeY / 2) - 240) + classicStashLayout->Top;
+		if (((WORD)lodStashLayout->Top >> 15) == 1) {
+			LOD_STASH_TOP = ((*p_D2CLIENT_ScreenSizeY / 2) - 240) + ((WORD)lodStashLayout->Top - 0x10000);
+		}
+		else {
+			LOD_STASH_TOP = ((*p_D2CLIENT_ScreenSizeY / 2) - 240) + (WORD)lodStashLayout->Top;
+		}
+		if (((WORD)classicStashLayout->Top >> 15) == 1) {
+			CLASSIC_STASH_TOP = ((*p_D2CLIENT_ScreenSizeY / 2) - 240) + ((WORD)classicStashLayout->Top - 0x10000);
+		}
+		else {
+			CLASSIC_STASH_TOP = ((*p_D2CLIENT_ScreenSizeY / 2) - 240) + classicStashLayout->Top;
+		}
 		CUBE_LEFT = ((*p_D2CLIENT_ScreenSizeX / 2) - 320) + cubeLayout->Left;
 		CUBE_TOP = ((*p_D2CLIENT_ScreenSizeY / 2) - 240) + cubeLayout->Top;
 	} else {
